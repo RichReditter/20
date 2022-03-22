@@ -1,21 +1,10 @@
-
-// function sendRequest(method,url,body = null){
-//     return fetch(url).then( response =>{
-//         return response.json()
-//     })
-// }
-
-// sendRequest('GET',requestedURL)
-//     .then(data => console.log(data))
-//     .catch( error => console.error(error))
-
-let firstName;
-let lastName;
-let gender;
-let photo;
-let email;
-let phone;
 const requestedURL = 'https://randomuser.me/api/'
+// let firstName;
+// let lastName;
+// let gender;
+// let photo;
+// let email;
+// let phone;
 
 async function getResponse(){
     let response = await fetch(requestedURL)
@@ -23,27 +12,30 @@ async function getResponse(){
 
     let results = content.results;
     let requiredInfo = results[0]
-    firstName = requiredInfo.name.first
-    lastName = requiredInfo.name.last
-    gender = requiredInfo.gender
-    photo = requiredInfo.picture.large
-    email = requiredInfo.email
-    phone = requiredInfo.cell.replaceAll('(',' ').replaceAll(')',' ')
+    
+    let firstName = requiredInfo.name.first
+    let lastName = requiredInfo.name.last
+    let gender = requiredInfo.gender
+    let photo = requiredInfo.picture.large
+    let email = requiredInfo.email
+    let phone = requiredInfo.cell.replaceAll('(',' ').replaceAll(')',' ')
     console.log(firstName)
+    const addBTN = document.body.querySelector('.btn-info')
+    addBTN.addEventListener( 'click', function(e){
+        e.preventDefault();
+
+        const newPhoto = document.body.querySelector('#newPhoto')
+        let tr = document.createElement('tr')
+        let newTable = document.body.querySelector('tbody')
+        let tdPhoto = document.createElement('td')
+        let img = document.createElement('img')
+        img.src = newPhoto.src
+        tdPhoto.appendChild(img)
+        tr.appendChild(tdPhoto)
+        
+        newTable.appendChild(tr)
+
+    })
+    
 }
-
 getResponse();
-
-const addBTN = document.body.querySelector('.btn-info')
-addBTN.addEventListener( 'click', function(e){
-    e.preventDefault();
-    let tr = document.createElement('tr')
-    let firstTable = document.body.querySelector('tbody')
-    let tdName = document.createElement('td')
-    
-    tdName.textContent = firstName
-    firstTable.append(tr)
-    
-})
-
-console.log(firstName)
